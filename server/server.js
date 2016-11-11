@@ -18,6 +18,7 @@ import configureStore from '../common/store/configureStore'
 import App from '../common/containers/App'
 import CounterPage from '../common/containers/CounterPage';
 import AboutPage from '../common/containers/AboutPage';
+import HomePage from '../common/containers/HomePage';
 import { fetchCounter } from '../common/api/counter'
 
 const app = new Express()
@@ -48,7 +49,8 @@ function handleRender(req, res) {
       routes: (
         <Router history={browserHistory}>
           <Route path="/" component={App}>
-            <IndexRoute component={CounterPage} />
+            <IndexRoute component={HomePage} />
+            <Route path="counter" component={CounterPage} />
             <Route path="about" component={AboutPage} />
           </Route>
         </Router>

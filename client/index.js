@@ -7,6 +7,7 @@ import configureStore from '../common/store/configureStore'
 import App from '../common/containers/App'
 import CounterPage from '../common/containers/CounterPage'
 import AboutPage from '../common/containers/AboutPage'
+import HomePage from '../common/containers/HomePage'
 
 const preloadedState = window.__PRELOADED_STATE__
 const store = configureStore(preloadedState)
@@ -16,7 +17,8 @@ render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App}>
-        <IndexRoute component={CounterPage} />
+        <IndexRoute component={HomePage} />
+        <Route path="counter" component={CounterPage} />
         <Route path="about" component={AboutPage} />
       </Route>
     </Router>

@@ -9,6 +9,7 @@ class App extends React.Component {
         <div className="app-nav">
           <ul>
             <li><a href="/">Home</a></li>
+            <li><a href="/counter">Counter</a></li>
             <li><a href="/about">About</a></li>
           </ul>
         </div>
