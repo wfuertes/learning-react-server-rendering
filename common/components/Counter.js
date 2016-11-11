@@ -10,7 +10,7 @@ const Counter = ({increment, incrementIfOdd, incrementAsync, decrement, counter}
     {' '}
     <button onClick={incrementIfOdd}>Increment if odd</button>
     {' '}
-    <button onClick={function() { incrementAsync() }}>Increment async</button>
+    <button onClick={function() { incrementAsync(); }}>Increment async</button>
   </p>
 );
 

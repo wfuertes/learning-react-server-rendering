@@ -2,6 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 
 export default {
+  debug: false,
+  noInfo: false,
   devtool: 'inline-source-map',
   entry: [
     'webpack-hot-middleware/client',

@@ -1,3 +1,5 @@
+require('babel-register');
+
 /* eslint-disable no-console, no-use-before-define */
 import qs from 'qs';
 import path from 'path';
@@ -6,7 +8,7 @@ import Express from 'express';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
-import webpackConfig from '../webpack.config';
+import webpackConfig from '../webpack.config.dev';
 
 import React from 'react';
 import { Provider } from 'react-redux';
