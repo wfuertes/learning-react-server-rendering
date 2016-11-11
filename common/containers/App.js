@@ -1,5 +1,5 @@
-import React from 'react';
-import { connect } from 'react-redux'
+import React, {PropTypes} from 'react';
+import { connect } from 'react-redux';
 
 class App extends React.Component {
   render() {
@@ -19,7 +19,11 @@ class App extends React.Component {
         </div>
       </div>
     );
-  };
+  }
 }
 
-export default connect()(App)
+App.propTypes ={
+  children: PropTypes.object.isRequired
+};
+
+export default connect()(App);

@@ -8,7 +8,7 @@ class AboutPage extends React.Component {
         <p> This is the about page that's all! </p> 
       </div>
     );
-  };
+  }
 }
 
-export default connect()(AboutPage)
+export default connect()(AboutPage);

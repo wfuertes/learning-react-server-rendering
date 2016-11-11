@@ -1,60 +1,48 @@
 /* eslint-disable no-console, no-use-before-define */
+import qs from 'qs';
+import path from 'path';
+import Express from 'express';
 
-import path from 'path'
-import Express from 'express'
-import qs from 'qs'
+import webpack from 'webpack';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+import webpackConfig from '../webpack.config';
 
-import webpack from 'webpack'
-import webpackDevMiddleware from 'webpack-dev-middleware'
-import webpackHotMiddleware from 'webpack-hot-middleware'
-import webpackConfig from '../webpack.config'
+import React from 'react';
+import { Provider } from 'react-redux';
+import { renderToString } from 'react-dom/server';
+import { match, RouterContext } from 'react-router';
+import routes from '../common/routes.js';
 
-import React from 'react'
-import { Router, Route, IndexRoute, browserHistory, match, RouterContext } from 'react-router';
-import { renderToString } from 'react-dom/server'
-import { Provider } from 'react-redux'
+import { fetchCounter } from '../common/api/counter';
+import configureStore from '../common/store/configureStore';
 
-import configureStore from '../common/store/configureStore'
-import App from '../common/containers/App'
-import CounterPage from '../common/containers/CounterPage';
-import AboutPage from '../common/containers/AboutPage';
-import HomePage from '../common/containers/HomePage';
-import { fetchCounter } from '../common/api/counter'
-
-const app = new Express()
-const port = 3000
+const app = new Express();
+const port = 3000;
 
 // Use this middleware to set up hot module reloading via webpack.
-const compiler = webpack(webpackConfig)
-app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: webpackConfig.output.publicPath }))
-app.use(webpackHotMiddleware(compiler))
+const compiler = webpack(webpackConfig);
+app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: webpackConfig.output.publicPath }));
+app.use(webpackHotMiddleware(compiler));
 
 // This is fired every time the server side receives a request
-app.use(handleRender)
+app.use(handleRender);
 
 function handleRender(req, res) {
   // Query our mock API asynchronously
   fetchCounter(apiResult => {
     // Read the counter from the request, if provided
-    const params = qs.parse(req.query)
-    const counter = parseInt(params.counter, 10) || apiResult || 0
+    const params = qs.parse(req.query);
+    const counter = parseInt(params.counter, 10) || apiResult || 0;
 
     // Compile an initial state
-    const preloadedState = { counter }
+    const preloadedState = { counter };
 
     // Create a new Redux store instance
-    const store = configureStore(preloadedState)
+    const store = configureStore(preloadedState);
 
     match({
-      routes: (
-        <Router history={browserHistory}>
-          <Route path="/" component={App}>
-            <IndexRoute component={HomePage} />
-            <Route path="counter" component={CounterPage} />
-            <Route path="about" component={AboutPage} />
-          </Route>
-        </Router>
-      ),
+      routes: routes,
       location: req.url
     }, (error, redirectLocation, renderProps) => {
       if (renderProps) {
@@ -72,7 +60,6 @@ function handleRender(req, res) {
         res.status(404).send('Not Found');
       }
     });
-
   });
 }
 
@@ -113,13 +100,13 @@ function renderFullPage(html, preloadedState) {
         <script src="/static/bundle.js"></script>
       </body>
     </html>
-    `
+    `;
 }
 
 app.listen(port, (error) => {
   if (error) {
-    console.error(error)
+    console.error(error);
   } else {
-    console.info(`==> 🌎  Listening on port ${port}. Open up http://localhost:${port}/ in your browser.`)
+    console.info(`==> 🌎  Listening on port ${port}. Open up http://localhost:${port}/ in your browser.`);
   }
-})
+});

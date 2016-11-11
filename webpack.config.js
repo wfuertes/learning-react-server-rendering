@@ -1,7 +1,7 @@
-var path = require('path')
-var webpack = require('webpack')
+const path = require('path');
+const webpack = require('webpack');
 
-module.exports = {
+export default {
   devtool: 'inline-source-map',
   entry: [
     'webpack-hot-middleware/client',
@@ -13,8 +13,8 @@ module.exports = {
     publicPath: '/static/'
   },
   plugins: [
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin()
   ],
   module: {
     loaders: [
@@ -29,4 +29,4 @@ module.exports = {
       }
     ]
   }
-}
+};

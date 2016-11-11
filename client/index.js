@@ -1,27 +1,19 @@
-import 'babel-polyfill'
-import React from 'react'
-import { render } from 'react-dom'
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
-import { Provider } from 'react-redux'
-import configureStore from '../common/store/configureStore'
-import App from '../common/containers/App'
-import CounterPage from '../common/containers/CounterPage'
-import AboutPage from '../common/containers/AboutPage'
-import HomePage from '../common/containers/HomePage'
+import 'babel-polyfill';
 
-const preloadedState = window.__PRELOADED_STATE__
-const store = configureStore(preloadedState)
-const rootElement = document.getElementById('app')
+import React from 'react';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+
+import routes from '../common/routes';
+import configureStore from '../common/store/configureStore';
+
+const preloadedState = window.__PRELOADED_STATE__;
+const store = configureStore(preloadedState);
 
 render(
   <Provider store={store}>
-    <Router history={browserHistory}>
-      <Route path="/" component={App}>
-        <IndexRoute component={HomePage} />
-        <Route path="counter" component={CounterPage} />
-        <Route path="about" component={AboutPage} />
-      </Route>
-    </Router>
+    <Router history={browserHistory} routes={routes} />
   </Provider>,
-  rootElement
-)
+  document.getElementById('app')
+);

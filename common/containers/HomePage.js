@@ -19,7 +19,7 @@ class HomePage extends React.Component {
         <button onClick={this.handleClick}>Hello World</button>
       </div>
     );
-  };
+  }
 }
 
-export default connect()(HomePage)
+export default connect()(HomePage);

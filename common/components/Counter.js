@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react';
 
 const Counter = ({increment, incrementIfOdd, incrementAsync, decrement, counter}) => (
   <p>
@@ -10,9 +10,9 @@ const Counter = ({increment, incrementIfOdd, incrementAsync, decrement, counter}
     {' '}
     <button onClick={incrementIfOdd}>Increment if odd</button>
     {' '}
-    <button onClick={() => incrementAsync()}>Increment async</button>
+    <button onClick={function() { incrementAsync() }}>Increment async</button>
   </p>
-)
+);
 
 Counter.propTypes = {
   increment: PropTypes.func.isRequired,
@@ -20,6 +20,6 @@ Counter.propTypes = {
   incrementAsync: PropTypes.func.isRequired,
   decrement: PropTypes.func.isRequired,
   counter: PropTypes.number.isRequired
-}
+};
 
-export default Counter
+export default Counter;
